@@ -1,0 +1,9 @@
+# ---
+# Aliases
+# ---
+
+function kp(){
+  kill $(lsof -t -i:$1)
+}
+
+alias blaze="bazel"
