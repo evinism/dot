@@ -1,3 +1,3 @@
-SRCDIR=${0:a:h}
-source $SRCDIR/.ohmyzsh
-source $SRCDIR/.aliases
+export DOTFILES_DIR=${0:a:h}
+source $DOTFILES_DIR/.ohmyzsh
+source $DOTFILES_DIR/.aliases
