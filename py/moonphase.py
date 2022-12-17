@@ -32,11 +32,39 @@ def phase(pos):
       7: "🌘︎"
    }[int(index) & 7]
 
+def phase_basic(pos): 
+   index = (pos * dec(8)) + dec("0.5")
+   index = math.floor(index)
+   return {
+      0: "○",
+      1: "◔",
+      2: "◑",
+      3: "◕",
+      4: "●",
+      5: "◔", # Ugh... i want this reversed
+      6: "◕",
+      7: "◔"  # same, ugh want this reversed 
+   }[int(index) & 7]
+
+
+def phase_basic(pos): 
+   index = (pos * dec(8)) + dec("0.5")
+   index = math.floor(index)
+   return {
+      0: "○",
+      1: "◔\u0307",
+      2: "◑\u0307",
+      3: "◕\u0307",
+      4: "●",
+      5: "◕\u0323", # Ugh... i want this reversed
+      6: "◑\u0323",
+      7: "◔\u0323"  # same, ugh want this reversed 
+   }[int(index) & 7]
 
 
 def main(): 
    pos = position()
-   phasename = phase(pos)
+   phasename = phase_basic(pos)
    print(phasename)
 
 if __name__=="__main__": 

@@ -1,3 +1,4 @@
 export DOTFILES_DIR=${0:a:h}
 source $DOTFILES_DIR/.ohmyzsh
 source $DOTFILES_DIR/.aliases
+source $DOTFILES_DIR/.tarot
