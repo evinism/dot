@@ -3,10 +3,19 @@ autoload -U colors && colors
 CARDS=( "The Fool" "The Magician" "The High Priestess" "The Empress" "The Emperor" "The Hierophant" "The Lovers" "The Chariot" "Strength" "The Hermit" "Wheel of Fortune" "Justice" "The Hanged Man" "Death" "Temperance" "The Devil" "The Tower" "The Star" "The Moon" "The Sun" "Judgement" "The World" "The Ace of Wands" "The Two of Wands" "The Three of Wands" "The Four of Wands" "The Five of Wands" "The Six of Wands" "The Seven of Wands" "The Eight of Wands" "The Nine of Wands" "The Ten of Wands" "The Page of Wands" "The Knight of Wands" "The Queen of Wands" "The King of Wands" "The Ace of Cups" "The Two of Cups" "The Three of Cups" "The Four of Cups" "The Five of Cups" "The Six of Cups" "The Seven of Cups" "The Eight of Cups" "The Nine of Cups" "The Ten of Cups" "The Page of Cups" "The Knight of Cups" "The Queen of Cups" "The King of Cups" "The Ace of Swords" "The Two of Swords" "The Three of Swords" "The Four of Swords" "The Five of Swords" "The Six of Swords" "The Seven of Swords" "The Eight of Swords" "The Nine of Swords" "The Ten of Swords" "The Page of Swords" "The Knight of Swords" "The Queen of Swords" "The King of Swords" "The Ace of Pentacles" "The Two of Pentacles" "The Three of Pentacles" "The Four of Pentacles" "The Five of Pentacles" "The Six of Pentacles" "The Seven of Pentacles" "The Eight of Pentacles" "The Nine of Pentacles" "The Ten of Pentacles" "The Page of Pentacles" "The Knight of Pentacles" "The Queen of Pentacles" "The King of Pentacles")
 
 function random_tarot_card(){
-  SHA=$(date +%Y-%m-%d | shasum | cut -d' ' -f1 | cut -c1-2)
-  CARD_INDEX=$(expr $(echo "ibase=16; ${SHA:u}" | bc) % ${#CARDS[@]})
-  echo ${CARDS[1 + CARD_INDEX]}
-}
+  SHA=$(date +%Y-%m-%d | shasum | cut -d' ' -f1)
 
+  FIRSTPART=$(echo $SHA | cut -c1-2)
+  SECONDPART=$(echo $SHA | cut -c3-4)
+
+  CARD_INDEX=$(expr $(echo "ibase=16; ${FIRSTPART:u}" | bc) % ${#CARDS[@]})
+  INVERTED=$(expr $(echo "ibase=16; ${SECONDPART:u}" | bc) % 2)
+
+  RESULT=${CARDS[1 + CARD_INDEX]}
+  if [[ $INVERTED -eq 1 ]]; then
+    RESULT="$RESULT (Reversed)"
+  fi
+  echo $RESULT
+}
 
 echo "\n Today's Card is $fg[yellow]$(random_tarot_card) $reset_color\n"
