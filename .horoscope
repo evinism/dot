@@ -1,0 +1,6 @@
+autoload -U colors && colors
+
+function horoscope(){
+  echo "Leo: ♌︎"
+echo "\n" $(curl -s https://ohmanda.com/api/horoscope/leo/ | jq .horoscope) "\n"
+}

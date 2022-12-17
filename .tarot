@@ -166,7 +166,7 @@ REVERSE_MEANINGS=(
   "Financially inept, obsessed with wealth and status, stubborn."
 )
 
-function random_tarot_card(){
+function dailytarot(){
   SALT=llaswonklatsyrceht
   SHA=$(echo $(date +%Y-%m-%d) $SALT | shasum | cut -d' ' -f1)
 
@@ -185,4 +185,3 @@ function random_tarot_card(){
   echo "\n Today's Card is $fg[yellow]$RESULT $reset_color\n$fg[cyan]  〉$MEANING$reset_color\n"
 }
 
-random_tarot_card
