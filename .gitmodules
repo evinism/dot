@@ -1,0 +1,3 @@
+[submodule "OnionGit"]
+	path = OnionGit
+	url = https://github.com/evinism/OnionGit
