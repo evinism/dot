@@ -5,4 +5,5 @@ source $DOTFILES_DIR/.tarot
 source $DOTFILES_DIR/.horoscope
 
 # MOTD
-dailytarot
+[[ -n $TAROT ]] && dailytarot
+[[ -n $ASTRO ]] && python $DOTFILES_DIR/py/astro.py
