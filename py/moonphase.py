@@ -22,19 +22,19 @@ def position(now=None):
 def phase(pos): 
    waxing_waning = "\u0307" if pos < dec("0.5") else "\u0323"
    if dec("0.485") < pos < dec("0.515"): 
-      icon = "☀"
+      icon = "\u2600"
    else: 
       index = (pos * dec(8)) + dec("0.5")
       index = math.floor(index)
       icon = {
-         0: "○",
-         1: "◔",
-         2: "◑",
-         3: "◕",
-         4: "●",
-         5: "◕", # Ugh... i want this reversed
-         6: "◑",
-         7: "◔"  # same, ugh want this reversed 
+         0: "\u25cb",
+         1: "\u25d4",
+         2: "\u25d1",
+         3: "\u25d5",
+         4: "\u25cf",
+         5: "\u25d5", # reversed
+         6: "\u25d1",
+         7: "\u25d4"  # reversed
       }[int(index) & 7]
    return icon + waxing_waning
 
@@ -43,8 +43,6 @@ def main(datetime=None):
    pos = position(datetime)
    phasename = phase(pos)
    print(phasename)
-
-
 
 if __name__=="__main__": 
    main()
