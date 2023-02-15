@@ -1,5 +1,54 @@
-function moonphase(){
-  python3 $DOTFILES_DIR/py/moonphase.py
+# Calculate Lunar Phase
+# Author: Sean B. Palmer, inamidst.com
+# Cf. http://en.wikipedia.org/wiki/Lunar_phase#Lunar_phase_calculation
+
+get_moon_position() {
+    if [ -z "$1" ]; then
+        now=$(date +'%s')
+    else
+        now=$(date -d "$1" +'%s')
+    fi
+
+    diff=$((now - $(date -d '2001-01-01' +'%s')))
+    days=$(echo "scale=10; $diff / 86400" | bc)
+    lunations=$(echo "scale=10; 0.20439731 + $days * 0.03386319269" | bc)
+
+    echo "$lunations % 1" | bc
+}
+
+get_moon_phase() {
+    pos=$1
+    waxing_waning=$(echo "$pos < 0.5" | bc -l)
+    if (( $(echo "0.485 < $pos && $pos < 0.515" | bc -l) )); then
+        icon=$'\u2600'
+    else
+        index=$(echo "scale=0; $pos * 8 + 0.5" | bc)
+        icon=$(
+            case $(($index & 7)) in
+                0) echo $'\u25cb';;
+                1) echo $'\u25d4';;
+                2) echo $'\u25d1';;
+                3) echo $'\u25d5';;
+                4) echo $'\u25cf';;
+                5) echo $'\u25d5';;
+                6) echo $'\u25d1';;
+                7) echo $'\u25d4';;
+            esac
+        )
+    fi
+    waxing_indicator=$'\u0307'
+    waning_indicator=$'\u0323'
+    if [ -z "SUPPORTS_COMBINING_DIACRITICS" ]; then
+      echo "$icon${waxing_waning:+$waxing_indicator}${waxing_waning:+$waning_indicator}"
+    else
+      echo $icon
+    fi
+}
+
+moonphase() {
+  pos=$(get_moon_position "$1")
+  phasename=$(get_moon_phase $pos)
+  echo "$phasename"
 }
 
 function get_hostcolor(){
