@@ -54,7 +54,15 @@ moonphase() {
 function get_hostcolor(){
   # return a random color based on hostname
   # colors: blue, green, yellow,
-  colors=("cyan" "magenta" "yellow" "orange")
+  colors=(
+    "cyan"
+    "magenta"
+    "yellow"
+    "orange"
+    "white"
+    "blue",
+    "green"
+  )
   hostname=$(hostname)
   hash=$(echo $hostname | md5sum)
   index=$(( 16#${hash:0:2} % ${#colors[@]} ))
