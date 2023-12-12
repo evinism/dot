@@ -4,17 +4,24 @@
 
 get_moon_position() {
     if [ -z "$1" ]; then
-        now=$(date +'%s')
+        now=$($DATE_CMD +'%s')
     else
-        now=$(date -d "$1" +'%s')
+        now=$($DATE_CMD -d "$1" +'%s')
     fi
 
-    diff=$((now - $(date -d '2001-01-01' +'%s')))
+    diff=$((now - $($DATE_CMD -d '2001-01-01' +'%s')))
     days=$(echo "scale=10; $diff / 86400" | bc)
     lunations=$(echo "scale=10; 0.20439731 + $days * 0.03386319269" | bc)
 
     echo "$lunations % 1" | bc
 }
+
+if ! command -v gdate &> /dev/null
+then
+    DATE_CMD=date 
+else
+    DATE_CMD=gdate
+fi
 
 get_moon_phase() {
     pos=$1
