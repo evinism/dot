@@ -7,3 +7,5 @@ function kp(){
 }
 
 alias blaze="bazel"
+
+alias refresh="source ~/.zshrc"

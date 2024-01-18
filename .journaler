@@ -1,0 +1,12 @@
+function journaler(){
+  ISO_DATE=$(date -I)
+  mkdir ~/Documents/journaler
+
+  FNAME=~/Documents/journaler/$ISO_DATE.txt
+  if [ ! -f $FNAME ]; then
+    echo "Journal Entry\n$(date)\n-----\n" > $FNAME
+  fi
+  $EDITOR $FNAME
+}
+
+alias j=journaler

@@ -4,6 +4,9 @@ source $DOTFILES_DIR/.aliases
 source $DOTFILES_DIR/.tarot
 source $DOTFILES_DIR/.horoscope
 source $DOTFILES_DIR/OnionGit/oniongit.sh
+source $DOTFILES_DIR/.journaler
+
+export EDITOR=emacs
 
 # MOTD
 [[ -n $TAROT ]] && dailytarot
