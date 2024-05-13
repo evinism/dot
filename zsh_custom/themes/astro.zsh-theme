@@ -45,11 +45,15 @@ get_moon_phase() {
     fi
     waxing_indicator=$'\u0307'
     waning_indicator=$'\u0323'
-    if [ -z "SUPPORTS_COMBINING_DIACRITICS" ]; then
-      echo "$icon${waxing_waning:+$waxing_indicator}${waxing_waning:+$waning_indicator}"
-    else
-      echo $icon
-    fi
+    #if [ -z "$DISABLE_WAXING_WANING" ]; then
+      if [[ $waxing_waning -eq 1 ]]; then
+        echo "${icon}${waxing_indicator}"
+      else
+        echo "${icon}${waning_indicator}"
+      fi
+    #else
+    #  echo $icon
+    #fi
 }
 
 moonphase() {

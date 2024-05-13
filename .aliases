@@ -9,3 +9,17 @@ function kp(){
 alias blaze="bazel"
 
 alias refresh="source ~/.zshrc"
+
+HOSTSFILE=/private/etc/hosts
+
+function ads_on(){
+  sudo rm $HOSTSFILE
+  sudo touch $HOSTSFILE
+  sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder
+}
+
+function ads_off(){
+  sudo rm $HOSTSFILE
+  curl --silent https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee $HOSTSFILE > /dev/null
+  sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder
+}
